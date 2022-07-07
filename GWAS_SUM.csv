@@ -1,0 +1,48 @@
+Study,Population,Cases,Controls,Variant,Gene,Odds ratio [95% CI],PANTHER protein class [126],Continent,Cohort Size,Cases(%),Control(%),Replication
+[127],Ghanaian,921,1740,rs4331426,Gene desert (chromosome 18),1.19 [1.13-1.27],Intergenic,Africa,2661,34.61104848,65.38895152,
+[127],Gambian,1316,1382,rs4331426,Gene desert (chromosome 18),,Intergenic,Africa,2698,48.77687176,51.22312824,
+[128],American,48,57,rs4893980,PDE11A,0.13,Phosphodiesterase,,105,45.71428571,54.28571429,
+[128],American,48,57,rs10488286,KCND2,11.15,Potassium voltage-gated channel subfamily D member,,105,45.71428571,54.28571429,
+[128],American,48,57,rs2026414,PCDH15,3.11,Cadherin,,105,45.71428571,54.28571429,
+[128],American,48,57,rs10487416,Unknown gene,5.56,Unknown,,105,45.71428571,54.28571429,
+[129],Thai�Young TB,433,295,rs6071980,"HSPEP1, MAFB (intergenic, chromosome 20q12)",1.73 [1.42–2.11],"Pseudogene,Nucleic acid bindingtranscription factor",,728,59.47802198,40.52197802,
+[129],Japanese,188,934,rs6071980,"HSPEP1, MAFB (intergenic, chromosome 20q12)", ,"Pseudogene,Nucleic acid bindingtranscription factor",,1122,16.75579323,83.24420677,
+[130],Indonesian,108,115,rs2273061,JAG1,1.8 [1.18–2.72],Notch1 ligand,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs4461087,DYNLRB2,1.62 [1.1–2.37],Microtubule family cytoskeletal protein,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs1051787,EBF1,0.57 [0.38–0.88],Transcription factor,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs10497744,TMEFF2,0.55 [0.38–0.82],Extracellular matrix linker proteinreceptor,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs1020941,TMEFF2,0.57 [0.38–0.83],Extracellular matrix linker proteinreceptor,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs188872,CCL17,0.51 [0.33–0.78],Chemokine,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs10245298,HAUS6,2.37 [1.09–5.16],Subunit of the augmin complex,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs6985962,PENK,2.01 [1.12–3.61],Neuropeptide,,223,48.43049327,51.56950673,
+[130],Indonesian,108,115,rs1418267,ERP44,3.19 [1.71–5.99],Endoplasmic reticulum resident protein,,223,48.43049327,51.56950673,
+[131],Ghanaian,2127,5636,rs2057178,WT1 (intergenic),0.77 [0.71–0.84],Wilms tumor protein,Africa,7763,27.39920134,72.60079866,Original
+[131],Gambian,1207,1349,rs2057178,WT1 (intergenic),0.80 [0.70–0.91],Wilms tumor protein,Africa,2556,47.22222222,52.77777778,Orignal
+[131],Russian,1025,983,rs2057178,WT1 (intergenic),0.91 [0.82–0.99],Wilms tumor protein,,2008,51.04581673,48.95418327,Y
+[131],Indonesian,4441,5874,rs2057178,WT1 (intergenic),0.84 [0.68–1.03],Wilms tumor protein,,10315,43.05380514,56.94619486,Y
+[132],South African,642,91,rs2057178,WT1 (intergenic),0.62 [0.50–0.75],Wilms tumor protein,Africa,733,87.58526603,12.41473397,Y
+[132],South African,642,91,rs11031728,WT1 (intergenic),0.61(0.50–0.75),Wilms tumor protein,Africa,733,87.58526603,12.41473397,
+[133],Russian,5530,5607,rs4733781,ASAP1,0.84 [0.79–0.89],G-protein modulatornucleic acid binding,Europe,11137,49.65430547,50.34569453,
+[133],Russian,5530,5607,rs10956514,ASAP1,0.85 [0.80–0.90],G-protein modulatornucleic acid binding,Europe,11137,49.65430547,50.34569453,
+[133],Russian,5530,5607,rs1017281,ASAP1,0.85 [0.81–0.90],G-protein modulatornucleic acid binding,Europe,11137,49.65430547,50.34569453,
+[133],Russian,5530,5607,rs1469288,ASAP1,0.84 [0.79–0.89],G-protein modulatornucleic acid binding,Europe,11137,49.65430547,50.34569453,
+[133],Russian,5530,5607,rs17285138,ASAP1,0.85 [0.80–0.90],G-protein modulatornucleic acid binding,Europe,11137,49.65430547,50.34569453,
+[133],Russian,5530,5607,rs2033059,ASAP1,0.83 [0.79–0.88],G-protein modulatornucleic acid binding,Europe,11137,49.65430547,50.34569453,
+[133],Russian,5530,5607,rs12680942,ASAP1,0.84 [0.79–0.89],G-protein modulatornucleic acid binding,Europe,11137,49.65430547,50.34569453,
+[134],Moroccan,556,650,rs358793,Intergenic,0.68 [0.57–0.82],Intergenic,Africa,1206,46.10281924,53.89718076,
+[134],Moroccan,556,650,rs17590261,Intergenic,6.24 [2.38–16.33],Intergenic,Africa,1206,46.10281924,53.89718076,
+[134],Moroccan,556,650,rs6786408,FOXP1,1.47 [1.23–1.79],DNA binding proteintranscription factor,Africa,1206,46.10281924,53.89718076,
+[134],Moroccan,556,650,rs916943,AGMO,1.86 [1.33–2.6],Alkylglycerol monooxygenase,Africa,1206,46.10281924,53.89718076,
+[135],Ugandan,267,314,rs4921437,IL12B,0.37 [0.27–0.53],Interleukin superfamily,Africa,581,45.95524957,54.04475043,
+[135],Tanzanian,267,314,rs4921437,IL12B,,Interleukin superfamily,Africa,581,45.95524957,54.04475043,
+[136],Icelandic,8162,"277,643",rs557011,Between HLA-DQA1 and HLA-DRB1,1.25 [1.17–1.33],Major histocompatibility complex antigen,Europe,285805,2.855793286,97.14420671,
+[136],Icelandic,8162,"277,643",rs9271378,Between HLA-DQA1 and HLA-DRB1,0.78 [0.73–0.84],Major histocompatibility complex antigen,Europe,285805,2.855793286,97.14420671,
+[136],Icelandic,8162,"277,643",rs9272785,HLA-DQA1,1.14 [1.09–1.19],Major histocompatibility complex antigen,Europe,285805,2.855793286,97.14420671,
+[5**],South African,410,405,rs12437118,DROSHA,0.4,miRNA Processing,Africa,815,50.30674847,49.69325153,
+[6**],Peru,2175,"1,827",rs73226617,ATP1B3,,Monocyte function,,4002,54.34782609,45.65217391,
+[6**],Peru,2175,"1,827",r29272785,HLA-DQA1,,Major histocompatibility complex antigen,,4002,54.34782609,45.65217391,
+[7],China,2949,"5,090",rs12437118,ESRRB,,estrogen receptor,,8039,36.68366712,63.31633288,
+[7],China,2949,"5,090",rs6114027,TGM6,,Transferase activity,,8039,36.68366712,63.31633288,
+[8],Vietnam,353,185,rs17155120�,C10orf90,,Tumor Surpression,Asia,538,65.6133829,34.3866171,Original
+[8],South African,136,118,rs17155120�,C10orf90,,Tumor Surpression,Africa,254,53.54330709,46.45669291,Y
+[8],France,30,157,rs17155120�,C10orf90,,Tumor Surpression,Europe,187,16.04278075,83.95721925,Y
