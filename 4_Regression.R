@@ -9,7 +9,7 @@ library(ggstance)#plt summaries of multiple models using plotsumms
 library(gtsummary)
 library(ggplot2)
 library(effects)
-#library(cowplot)
+##library(cowplot)
 library(forcats)
 library(questionr) # odds ratio model converteer
 
