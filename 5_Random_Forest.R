@@ -10,7 +10,7 @@ library(tree)
 library(ISLR2)
 library(ggRandomForests)
 
-#model_1a = glm(TB_diagnosis ~ Residence + sex + smokes + Years.of.education ,imputed.dataset.1.filtered.a1, family = binomial)
+#model_1a = glm(TB_diagnosis ~ Residence + sex + smokes + Years.of.education ,imputed.dataset.1.filtered.a1, family = binomial) 
 #summary(model_1a)
 #model_1a = glm(TB_diagnosis ~ Residence + sex + smokes + Years.of.education + drnk_alcohol + age ,imputed.dataset.1.filtered.a1, family = binomial)
 #select variables and remove missing data
