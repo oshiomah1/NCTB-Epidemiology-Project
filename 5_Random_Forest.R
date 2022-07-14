@@ -4,6 +4,7 @@ install.packages("tree")
 install.packages("rfsrc")
 
 #Load packages
+library(tidyverse)
 library(randomForest)
 library(randomForestSRC)
 library(tree)
@@ -14,37 +15,65 @@ library(ggRandomForests)
 #summary(model_1a)
 #model_1a = glm(TB_diagnosis ~ Residence + sex + smokes + Years.of.education + drnk_alcohol + age ,imputed.dataset.1.filtered.a1, family = binomial)
 #select variables and remove missing data
-RF_dataset = imputed.dataset.1.filtered.a1 %>% select(Residence,sex,smokes,Years.of.education,drnk_alcohol, age, TB_diagnosis) %>% rename(
+RF_dataset = imputed.dataset.1.filtered.a1 %>% select(Residence,sex,smokes,Years.of.education,drnk_alcohol, age, TB_diagnosis, diabetes) %>% rename(
   "Sex" = sex,
   "Smoker" = smokes,
   "Years.Of.Education" = Years.of.education,
   "Drinks.Alcohol" = drnk_alcohol,
   "Age" = age,
   "TB.Status" = TB_diagnosis,
-  #"Diabetes" = diabetes
+  "Diabetes" = diabetes
 )
 #RF_dataset2 = RF_dataset[complete.cases(RF_dataset),] #use this if there's missing data
 
 #do a random forest model (Initial Pass)
-NCTB_RF <- randomForest(TB.Status ~ . , data=RF_dataset)
+NCTB_RF <- randomForest(TB.Status ~ . ,ntree = 500, data=RF_dataset, importance=TRUE)
 NCTB_RF
 # mean(NCTB_RF$rsq) Doesnt work for binary outcomes
 varImpPlot(NCTB_RF)
+find.interaction(FullModel_withTuning, method = "vimp", nrep = 3)
 
-#Try a different number of variables at each split
 #use the package randomForestSRC for tuning mtry and nodesize, and other nice features
-
+set.seed(666)
 #Tuned Pass at random forest
-FullModel_tune = tune(TB.Status ~ ., importance=TRUE, na.action=c("na.omit"), data=RF_dataset)
+FullModel_tune = tune(TB.Status ~ ., importance="permute", na.action=c("na.omit"), data=RF_dataset, )
 # optimize mtry and nodesize
 FullModel_tune$optimal[["mtry"]]
 FullModel_tune$optimal[["nodesize"]]
+
 # include optimized mtry and nodesize values in tuned model
-FullModel_withTuning = rfsrc(TB.Status ~ ., importance="permute", na.action=c("na.omit"), mtry = FullModel_tune$optimal[["mtry"]], nodesize = FullModel_tune$optimal[["nodesize"]], data=RF_dataset)
+FullModel_withTuning = rfsrc(TB.Status ~ ., importance="permute", na.action=c("na.omit"), mtry = FullModel_tune$optimal[["mtry"]],ntree = 5000, nodesize = FullModel_tune$optimal[["nodesize"]], data=RF_dataset)
 FullModel_withTuning
-vimp(FullModel_withTuning, importance = "anti")$importance
+gg_object= gg_vimp(FullModel_withTuning)
+plot(gg_object) + theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + theme(axis.text=element_text(size=14, face="bold"),axis.title.y = element_text(color="black", size=14, face="bold"))
+#to do list
+#multiply x-axia by 100 to get mean decrease in accuracy
+#rename axes,, rename columns, # rename erv
+library(forcats)
+erv =as.data.frame(gg_object) %>% filter(set == "all")
+erv$vars = mutate(vars = fct_reorder(vars, vimp))
+#plot to use, multiply x-axia by 100 to get mean decrease in accuracy
+ggplot(erv, aes(y= vars, x= vimp,fill = positive )) + geom_bar(stat="identity") + theme_bw() + theme(panel.border = element_blank(),panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + theme(axis.text=element_text(size=14, face="bold"),axis.title.y = element_text(color="black", size=14, face="bold"))
+
+
+plot(gg_object)  +facet_grid(set ~ vars, labeller = labeller(set = set.labs)
+)
+
+
+
+#test to impute  birthplace with lr dataset
+#FullModel_withTuning_imp = rfsrc(TB.Status ~ ., importance="permute", na.action=c("na.impute"), mtry = FullModel_tune$optimal[["mtry"]],ntree = 50, nodesize = FullModel_tune$optimal[["nodesize"]], data=LR_dataset)
+#FullModel_withTuning_imp
+
+
+vimp(FullModel_withTuning, importance = "permute")$importance
 #visualize results
-plot(FullModel_withTuning)
+plot(FullModel_withTuning_imp, sorted = TRUE)
+
+
+#plot Standardized VIMP
+oo = subsample(FullModel_withTuning,verbose = FALSE)
+plot.subsample(oo, standardize = FALSE)
 
 # rfsrc_iris <- rfsrc(Species ~ ., data = iris)
 # data(rfsrc_iris, package="ggRandomForests")
@@ -81,7 +110,7 @@ plot(RF_test_predictions, NCTB.test$TB.Status)
 abline(0,1)
 #mean((RF_test_predictions-NCTB.test$TB.Status)^2)
 
-Prediction and Calculate Performance Metrics
+#Prediction and Calculate Performance Metrics
 
 pred1=predict(rf,type = "prob")
 library(ROCR)
