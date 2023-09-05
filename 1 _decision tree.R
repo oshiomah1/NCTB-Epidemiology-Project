@@ -7,12 +7,12 @@ library(reshape2)
 library(ggplot2)
 library(effects)
 
-###PART 1a####
+##PART 1a##
 #Upload data
 raw_data <- read.csv("/Users/oshi/Desktop/TB/NorthernCapeTBCaseCo-AllTheData_DATA_2022-01-19.csv", header=T, na.strings=c(""," ","NA","N/A"))  %>% select(-consent_taken)
 
 #1 - 425 is pilot data
-raw_pilot_data = raw_data %>%  slice((1:425)) %>% filter(age >= 18)f
+raw_pilot_data = raw_data %>%  slice((1:425)) %>% filter(age >= 18)
 
 ################################################################################
 ############################ PILOT DECISION TREE ###############################
