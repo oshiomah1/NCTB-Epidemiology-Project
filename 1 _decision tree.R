@@ -119,7 +119,7 @@ study_validator_A = function(tb_test_rest, tb_nonsmear, treat_or_drug){
 #"true diag" equals to study_validator_A function working on using our first 3 variables; tb_test_rest, tb_nonsmear, treat_or_drug. It does this for every row
 
 
-#and then  we pipe to selects just record id and true_diag
+#and then  we pipe to select just record id and true_diag
 table_A_validated = table_A %>%
   mutate(true_diag = study_validator_A(tb_test_rest, tb_nonsmear, treat_or_drug)) %>% select(record_id,true_diag)
 
@@ -128,7 +128,7 @@ table_A_validated = table_A %>%
 ######################################################
 
 #SUBSET post pilot data to 1,83,84,104 from code book
-#change NA's to unknown
+#change NAs to unknown
 #pipe to replace NAs
 past_tb_table = raw_study_data %>%
   select(c(record_id,prior_tb_self_reported, prior_tb_n_self_reported, frst_pst_tb_test_date)) %>% mutate(prior_tb_self_reported = as.character(prior_tb_self_reported)) %>% mutate(prior_tb_n_self_reported = as.character(prior_tb_n_self_reported)) %>% replace_na(list(prior_tb_self_reported = "unknown", prior_tb_n_self_reported = "unknown", frst_pst_tb_test_date = "unknown"))
@@ -162,7 +162,7 @@ validated_study_for_merge = merged_diagnoses %>%
 
 study_data_valid_tb = merge(validated_study_for_merge,raw_study_data,by="record_id")
 
-#Merge both pilot and study datasets now that tb status is validated
+#Merge both pilot and study data sets now that tb status is validated
 
 joined.data.valid.tb = bind_rows(pilot_data_valid_tb, study_data_valid_tb)
 
