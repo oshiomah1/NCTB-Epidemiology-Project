@@ -121,7 +121,7 @@ study_validator_A = function(tb_test_rest, tb_nonsmear, treat_or_drug){
 
 #and then  we pipe to select just record id and true_diag
 table_A_validated = table_A %>%
-  mutate(true_diag = study_validator_A(tb_test_rest, tb_nonsmear, treat_or_drug)) %>% select(record_id,true_diag)
+  mutate(true_diag = study_validator_A(tb_test_rest, tb_nonsmear, treat_or_drug)) %>% select(record_id, true_diag)
 
 ######################################################
 ###PRELIMINARY DATA WRANGLING  FOR DECISION TREE B###
