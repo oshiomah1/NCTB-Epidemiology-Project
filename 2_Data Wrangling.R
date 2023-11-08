@@ -99,19 +99,32 @@ alcohol.transformed = alc.smoke.3 %>%
   mutate(log_total_weekly_alcohol = log(total_weekly_alcohol))
 
 ####3###
-#reocde birthplace
+#recode birthplace
 ############
 birthplace_key <- read.csv("/Users/oshi/Desktop/TB/birthplace_key_v2.csv") %>%  select (birthplace, size_categ) %>%mutate_at("birthplace", as.character) %>% distinct
 
-original_birthplace_by_ID <- read.csv("/Users/oshi/Desktop/TB/NorthernCapeTBCaseCo-BirthplaceAndSamplin_DATA_LABELS_2022-03-10_2025.csv", header=T, na.strings=c(""," ","NA","N/A")) %>% select (record_id, birthplace_var) %>% rename(birthplace = birthplace_var)%>% mutate_at("birthplace", as.character)
+#create birthplace_var which combines results from 3 birthplace vars to prevent missingness
+#NOTE: "NorthernCapeTBCaseCo-Birthplace_DATA_LABELS_2023-11-08_2321.csv" is downloaded from redcap it is named "Birthplace" download with data labels
+update_birthplace <- read.csv("/Users/oshi/Downloads/NorthernCapeTBCaseCo-Birthplace_DATA_LABELS_2023-11-08_2321.csv", header=T,sep = ";" ,na.strings=c(""," ","NA","N/A"))  %>%
+  mutate(birthplace_var = case_when(
+    !is.na(Birthplace) ~ Birthplace,
+    !is.na(Place.of.Birth) & !(Place.of.Birth %in% c("Other", "other")) ~ Place.of.Birth,
+    !is.na(Place.of.Birth) & (Place.of.Birth %in% c("Other", "other")) ~ Place.of.birth..if.not.listed.above,
+    TRUE ~ NA_character_
+  ))  %>% select (Record.ID, birthplace_var) %>% rename(birthplace = birthplace_var,record_id = Record.ID )%>% mutate_at("birthplace", as.character)
 
 #use left join function to merge the birthplace table with the key
 #now just select the record.id and the recoded variable
-birthplace_recoded = left_join(original_birthplace_by_ID, birthplace_key, by = "birthplace") %>% rename(birthplace_clean = birthplace)
+birthplace_recoded = left_join(update_birthplace, birthplace_key, by = "birthplace") %>% rename(birthplace_clean = birthplace)
 
 # merge recoded birthplace with main dataset###
 # in this case its alcohol transformed
 birthplace.transformed =  left_join(alcohol.transformed, birthplace_recoded, by = "record_id") %>% relocate(birthplace_clean:size_categ, .after = "Clinic_Type")
+
+
+
+#
+ 
 
 #create new variable that converts town size(clinic sampling location) with this key: Large and small towns = town, rural =rural
 town.transformed = birthplace.transformed %>% mutate(Residence = case_when(Clinic_Type == "Large town"~ 'Town',Clinic_Type =="Small town"~ 'Town' ,Clinic_Type =="Rural"~ 'Rural')) %>% relocate(Residence, .after = Clinic_Type) %>% mutate(size_categ =as.character(size_categ)) %>% mutate(birthplace_type = case_when(size_categ == "1" ~ 'Rural',size_categ =="2" ~ 'Town',size_categ =="3"~ 'Town', size_categ =="4"~ 'Town')) %>% relocate(birthplace_type, .after = size_categ)
@@ -126,10 +139,16 @@ town.transformed = birthplace.transformed %>% mutate(Residence = case_when(Clini
 migration.transformed = town.transformed %>%
   mutate(migration = case_when(birthplace_type == "Rural" & Residence == "Rural"  ~ 'Rural-Rural', birthplace_type == "Rural" & Residence == "Town"  ~ 'Lived in a Town', birthplace_type == "Town" & Residence == "Rural"  ~ 'Lived in a Town',birthplace_type == "Town" & Residence == "Town"  ~ 'Lived in a Town',TRUE ~ NA_character_)) %>% relocate(migration, .after = birthplace_type) %>% rename(Birthplace = birthplace_type)
 
+ 
+  
 #rename dataset. and remove NCTEST (561)
   clean.full.data.pre.imputation = migration.transformed %>% filter(sample_id != "NCTest")
   
 
-  
-  
+  #filter HIV TB comorbids and unknown HIV
+ pre.imputation.hiv.TB_FILT = clean.full.data.pre.imputation %>%
+   filter((hiv == "1" & TB_diagnosis == "control") | (hiv == "0")) %>%
+   filter(!is.na(TB_diagnosis)) %>%
+   filter((TB_diagnosis=="unknown")) 
+
  
